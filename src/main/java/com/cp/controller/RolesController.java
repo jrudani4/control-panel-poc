@@ -36,7 +36,7 @@ public class RolesController {
 
     @PutMapping("/{roleId}/assign-to-user/{userId}")
     public ResponseEntity<User> assignRoleToUser(@PathVariable Long roleId, @PathVariable Long userId) {
-        return ResponseEntity.ok(rolesService.assignRolesToUser(userId, roleId));
+        return ResponseEntity.ok(rolesService.assignRolesToUser(roleId, userId));
     }
 
     @PutMapping("/{roleId}/assign-to-field/{fieldId}")

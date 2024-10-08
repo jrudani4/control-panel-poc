@@ -1,5 +1,7 @@
 package com.cp.controller;
 
+import com.cp.dtos.UserRequestDTO;
+import com.cp.dtos.UserResponseDTO;
 import com.cp.entity.FormFields;
 import com.cp.entity.User;
 import com.cp.service.UserService;
@@ -19,17 +21,17 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+    public ResponseEntity<User> createUser(@RequestBody UserRequestDTO userRequestDTO) {
+        return new ResponseEntity<>(userService.createUser(userRequestDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 

@@ -1,5 +1,7 @@
 package com.cp.service;
 
+import com.cp.dtos.UserRequestDTO;
+import com.cp.dtos.UserResponseDTO;
 import com.cp.entity.FormFields;
 import com.cp.entity.User;
 import com.cp.exception.exceptions.ErrorWhileSavingRecordException;
@@ -19,24 +21,41 @@ public class UserService {
     private final UserRepository userRepository;
     private final FormFieldsRepository formFieldsRepository;
 
-    public User createUser(User user) {
+    public User createUser(UserRequestDTO userRequestDTO) {
         try {
-            return userRepository.save(user);
+            return userRepository.save(User.builder()
+                    .name(userRequestDTO.getName())
+                    .email(userRequestDTO.getEmail())
+                    .password(userRequestDTO.getPassword())
+                    .build());
         } catch (Exception e) {
             throw new ErrorWhileSavingRecordException("Error while creating user, Please check the request!");
         }
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User Not Found with id: " + id));
+    public UserResponseDTO getUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User Not Found with id: " + id));
+        return UserResponseDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
+                .roles(user.getRoles())
+                .build();
     }
 
-    public List<User> getAllUsers() {
+    public List<UserResponseDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
             throw new NoRecordsFoundException("No Records Found!");
         }
-        return users;
+        return users.stream().map(user -> UserResponseDTO.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .createdAt(user.getCreatedAt())
+                .roles(user.getRoles())
+                .build()).toList();
     }
 
     public List<FormFields> getAllFormFieldsByUserId(Long userId) {

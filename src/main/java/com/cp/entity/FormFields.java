@@ -1,6 +1,7 @@
 package com.cp.entity;
 
 import com.cp.dtos.FormFieldTypes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "form_fields")
+@Table(name = "fields")
 public class FormFields {
 
     @Id
@@ -34,4 +35,8 @@ public class FormFields {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Roles> roles;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "formFields")
+    private List<Forms> forms;
 }

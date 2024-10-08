@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,4 +27,14 @@ public class Forms {
 
     @Column(nullable = false)
     private Long noOfFields;
+
+    @CreationTimestamp
+    private Date createAt;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "form_fields",
+            joinColumns = @JoinColumn(name = "form_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_id")
+    )
+    private List<FormFields> formFields;
 }
