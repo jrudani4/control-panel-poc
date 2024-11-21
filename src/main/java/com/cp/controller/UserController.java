@@ -30,6 +30,7 @@ public class UserController {
         return new ResponseEntity<>(userService.createUser(userRequestDTO), HttpStatus.CREATED);
     }
 
+    // TODO : use this for edit user profile/details
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));

@@ -39,4 +39,13 @@ public class FormFields {
     @JsonIgnore
     @ManyToMany(mappedBy = "formFields")
     private List<Forms> forms;
+
+    @Override
+    public String toString() {
+        return "FormFields{" +
+                "id=" + id +
+                ", fieldName='" + fieldName + '\'' +
+                ", fieldType=" + fieldType +
+                '}';
+    }
 }

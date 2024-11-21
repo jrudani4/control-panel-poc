@@ -18,10 +18,11 @@ public class SecurityConfiguration {
                 http
                         .csrf(AbstractHttpConfigurer::disable)
                         .authorizeHttpRequests(
-                                authorizeRequests -> authorizeRequests.requestMatchers("/error").permitAll()
+                                authorizeRequests -> authorizeRequests.requestMatchers("/error", "/app/**").permitAll()
                                         .anyRequest().authenticated()
                         )
                         .httpBasic(Customizer.withDefaults())
+                        .formLogin(Customizer.withDefaults())
                         .build();
     }
 }

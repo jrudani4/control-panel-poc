@@ -20,4 +20,14 @@ public class UserResponseDTO {
     private String email;
     private Date createdAt;
     private List<Roles> roles;
+
+    @Override
+    public String toString() {
+        return "UserResponseDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

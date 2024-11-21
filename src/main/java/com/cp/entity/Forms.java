@@ -37,4 +37,14 @@ public class Forms {
             inverseJoinColumns = @JoinColumn(name = "field_id")
     )
     private List<FormFields> formFields;
+
+    @Override
+    public String toString() {
+        return "Forms{" +
+                "createAt=" + createAt +
+                ", noOfFields=" + noOfFields +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

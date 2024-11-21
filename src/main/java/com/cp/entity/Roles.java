@@ -39,4 +39,9 @@ public class Roles {
             name = name.toUpperCase();
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
